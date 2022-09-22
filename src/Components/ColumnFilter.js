@@ -14,11 +14,6 @@ function ColumnFilter() {
     value: 0,
   });
 
-  const removeAllFilters = () => {
-    setFilterDropdown([]);
-    setNewColumnDropdown(columnDropdown);
-  };
-
   const handleChange = () => {
     setFilterDropdown([...filterDropdown, state]);
     const selected = state.column;
@@ -26,6 +21,15 @@ function ColumnFilter() {
     setNewColumnDropdown(dropdownFiltering);
   };
 
+  const filterRemove = (column) => {
+    const newFilter = filterDropdown.filter((value) => value.column !== column);
+    setFilterDropdown(newFilter);
+    setNewColumnDropdown([...newColumnDropdown, column]);
+  };
+  const removeAllFilters = () => {
+    setFilterDropdown([]);
+    setNewColumnDropdown(columnDropdown);
+  };
   useEffect(() => {
     setState({ ...state, column: newColumnDropdown[0] });
   }, [newColumnDropdown]);
@@ -79,7 +83,7 @@ function ColumnFilter() {
       {filterDropdown.map((value, index) => (
         <div data-testid="filter" key={ index }>
           <span>{`${value.column} | ${value.comparison} | ${value.value}`}</span>
-          <button type="button" onClick={ () => removefiltro(value.column) }>X</button>
+          <button type="button" onClick={ () => filterRemove(value.column) }>X</button>
         </div>
       ))}
     </div>
