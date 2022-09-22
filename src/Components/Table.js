@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PlanetsContext from '../Context/StarwarsContext';
 import NameFilter from './NameFilter';
+import ColumnFilter from './ColumnFilter';
 
 function Table() {
   const { planetsTab } = useContext(PlanetsContext);
@@ -10,6 +11,7 @@ function Table() {
   return (
     <>
       <NameFilter />
+      <ColumnFilter />
       <table>
         <thead>
           <tr>

@@ -2,13 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import PlanetsContext from '../Context/StarwarsContext';
 
 function NameFilter() {
-  const [searchPlanet, setSearchPlanet] = useState('');
+  const [searchPlanet, setSearchPlanet] = useState({ filterByName: { name: '' } });
   const { planets, setPlanetsTab } = useContext(PlanetsContext);
 
   useEffect(() => {
-    const filterPlanet = planets.filter((planet) => planet.name.includes(searchPlanet));
+    const filterPlanet = planets.filter((planet) => planet
+      .name.toLowerCase().includes(searchPlanet.filterByName.name.toLowerCase()));
     setPlanetsTab(filterPlanet);
-  }, [searchPlanet]);
+  }, [searchPlanet.filterByName.name]);
 
   return (
     <label htmlFor="searchPlanet">
@@ -17,8 +18,10 @@ function NameFilter() {
         id="searchPlanet"
         type="search"
         data-testid="name-filter"
-        value={ searchPlanet }
-        onChange={ (e) => setSearchPlanet(e.target.value) }
+        value={ searchPlanet.filterByName.name }
+        onChange={ ({ target }) => setSearchPlanet(
+          { filterByName: { name: target.value } },
+        ) }
       />
     </label>
   );
