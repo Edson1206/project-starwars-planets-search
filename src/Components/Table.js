@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import PlanetsContext from '../Context/StarwarsContext';
+import NameFilter from './NameFilter';
 
 function Table() {
   const { planetsTab } = useContext(PlanetsContext);
@@ -7,23 +8,22 @@ function Table() {
     'Climate', 'Gravity', 'Terrain', 'Surface Water', 'Population', 'Films',
     'Created', 'Edited', 'URL'];
   return (
-    <table>
-      <thead>
-        <tr>
-          {
-            title.map((value, index) => (
+    <>
+      <NameFilter />
+      <table>
+        <thead>
+          <tr>
+            {title.map((value, index) => (
               <th key={ index }>
                 {' '}
-                { value }
+                {value}
                 {' '}
               </th>
-            ))
-          }
-        </tr>
-      </thead>
-      <tbody>
-        {
-          planetsTab.map((item, index) => (
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {planetsTab.map((item, index) => (
             <tr key={ index }>
               <td data-testid="planet-name">{item.name}</td>
               <td>{item.rotation_period}</td>
@@ -38,10 +38,11 @@ function Table() {
               <td>{item.created}</td>
               <td>{item.edited}</td>
               <td>{item.url}</td>
-            </tr>))
-        }
-      </tbody>
-    </table>
+            </tr>))}
+        </tbody>
+      </table>
+
+    </>
   );
 }
 
